@@ -4,6 +4,9 @@ import me.youngermax.javachess.board.Board;
 import me.youngermax.javachess.board.Tile;
 import me.youngermax.javachess.pieces.AbstractPiece;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BishopPiece extends AbstractPiece {
     @Override
     public String getName() {
@@ -12,26 +15,19 @@ public class BishopPiece extends AbstractPiece {
 
     @Override
     public Tile[] getAvailableMoves(Board board) {
+        List<Tile> possibleMoves = new ArrayList<>();
 
         for (int diagonal = 1; diagonal < Board.SIZE; diagonal++) {
             if (!board.tiles[currentTile.x + diagonal][currentTile.y + diagonal].isOccupied() && board.tiles[currentTile.x + diagonal][currentTile.y + diagonal] != null) { //up right
-                return new Tile[]{
-                        board.tiles[currentTile.x + diagonal][currentTile.y + diagonal]
-                };
-            } else if (!board.tiles[currentTile.x - diagonal][currentTile.y + diagonal].isOccupied() && board.tiles[currentTile.x - diagonal][currentTile.y + diagonal] != null) { //up left
-                return new Tile[]{
-                        board.tiles[currentTile.x - diagonal][currentTile.y + diagonal]
-                };
-            } else if (!board.tiles[currentTile.x - diagonal][currentTile.y - diagonal].isOccupied() && board.tiles[currentTile.x - diagonal][currentTile.y - diagonal] != null) { //down left
-                return new Tile[]{
-                        board.tiles[currentTile.x - diagonal][currentTile.y - diagonal]
-                };
-            } else if (!board.tiles[currentTile.x + diagonal][currentTile.y - diagonal].isOccupied() && board.tiles[currentTile.x + diagonal][currentTile.y - diagonal] != null) { //down right
-                return new Tile[]{
-                        board.tiles[currentTile.x + diagonal][currentTile.y - diagonal]
-                };
+                possibleMoves.add(board.tiles[currentTile.x + diagonal][currentTile.y + diagonal]);
+            } else if (board.tiles[currentTile.x - diagonal][currentTile.y + diagonal] != null && !board.tiles[currentTile.x - diagonal][currentTile.y + diagonal].isOccupied()) { //up left
+                possibleMoves.add(board.tiles[currentTile.x - diagonal][currentTile.y + diagonal]);
+            } else if (board.tiles[currentTile.x - diagonal][currentTile.y - diagonal] != null && !board.tiles[currentTile.x - diagonal][currentTile.y - diagonal].isOccupied()) { //down left
+                possibleMoves.add(board.tiles[currentTile.x - diagonal][currentTile.y - diagonal]);
+            } else if (board.tiles[currentTile.x + diagonal][currentTile.y - diagonal] != null && !board.tiles[currentTile.x + diagonal][currentTile.y - diagonal].isOccupied()) { //down right
+                possibleMoves.add(board.tiles[currentTile.x + diagonal][currentTile.y - diagonal]);
             }
         }
-        return new Tile[] {};
+        return possibleMoves.toArray(new Tile[0]);
     }
 }
