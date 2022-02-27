@@ -27,6 +27,7 @@ public class ChessWindow extends JFrame {
         for (int row = 0; Board.SIZE > row; row++) {
             for (int col = 0; Board.SIZE > col; col++) {
                 this.add(new JButton());
+
             }
         }
     }
