@@ -1,6 +1,7 @@
 package me.youngermax.javachess.pieces;
 
 import me.youngermax.javachess.board.Board;
+import me.youngermax.javachess.board.Team;
 import me.youngermax.javachess.board.Tile;
 import me.youngermax.javachess.exception.AlreadyOccupiedException;
 import me.youngermax.javachess.exception.CannotMoveException;
@@ -8,7 +9,12 @@ import me.youngermax.javachess.exception.CannotMoveException;
 import java.util.Arrays;
 
 public abstract class AbstractPiece implements Piece {
+    protected final Team team;
     protected Tile currentTile;
+
+    public AbstractPiece(Team team) {
+        this.team = team;
+    }
 
     @Override
     public Tile getCurrentTile() {
@@ -28,5 +34,10 @@ public abstract class AbstractPiece implements Piece {
         // move
         tile.setOccupyingPiece(this);
         currentTile = tile;
+    }
+
+    @Override
+    public Team getTeam() {
+        return this.team;
     }
 }

@@ -1,6 +1,7 @@
 package me.youngermax.javachess.pieces.pieces;
 
 import me.youngermax.javachess.board.Board;
+import me.youngermax.javachess.board.Team;
 import me.youngermax.javachess.board.Tile;
 import me.youngermax.javachess.pieces.AbstractPiece;
 
@@ -8,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KnightPiece extends AbstractPiece {
+    public KnightPiece(Team team) {
+        super(team);
+    }
+
     @Override
     public String getName() {
         return "Knight";

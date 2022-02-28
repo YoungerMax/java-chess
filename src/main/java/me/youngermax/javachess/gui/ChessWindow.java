@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ChessWindow extends JFrame {
-    private static final int TILE_SIZE = 80;
+    private static final int TILE_SIZE = 100;
 
     private Board board;
     private ChessWindowTile[][] tiles = new ChessWindowTile[Board.SIZE][Board.SIZE];
@@ -42,7 +42,7 @@ public class ChessWindow extends JFrame {
     public void update(Board board) {
         for (Tile[] tiles : board.tiles) {
             for (Tile tile : tiles) {
-                this.tiles[tile.x][tile.y].setText(tile.getOccupyingPiece() == null ? "" : tile.getOccupyingPiece().getName());
+                this.tiles[tile.x][tile.y].setText(tile.getOccupyingPiece() == null ? "" : tile.getOccupyingPiece().getName() + " (" + tile.getOccupyingPiece().getTeam().id + ")");
             }
         }
     }
