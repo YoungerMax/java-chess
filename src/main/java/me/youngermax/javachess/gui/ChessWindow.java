@@ -24,11 +24,39 @@ public class ChessWindow extends JFrame {
     }
 
     public void populate() {
-        for (int row = 0; Board.SIZE > row; row++) {
-            for (int col = 0; Board.SIZE > col; col++) {
-                this.add(new JButton());
 
+        boolean offsetSecondRow = false;
+
+        Color posOneTileColor;
+        Color posTwoTileColor;
+
+        boolean colorTurn = true;
+
+        for (int row = 0; row < Board.SIZE; row++) {
+            for (int col = 0; col < Board.SIZE; col++) {
+                JButton btn = new JButton();
+
+                btn.setForeground(Color.BLACK);
+
+                if (row % 2 == 0) {
+                    posOneTileColor = Color.LIGHT_GRAY;
+                    posTwoTileColor = Color.DARK_GRAY;
+                } else {
+                    posOneTileColor = Color.DARK_GRAY;
+                    posTwoTileColor = Color.LIGHT_GRAY;
+                }
+
+                if (colorTurn) {
+                    btn.setBackground(posOneTileColor);
+                    colorTurn = false;
+                } else {
+                    btn.setBackground(posTwoTileColor);
+                    colorTurn = true;
+                }
+
+                this.add(btn);
             }
+
         }
     }
 
