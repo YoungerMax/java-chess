@@ -9,6 +9,9 @@ import java.awt.*;
 public class ChessWindow extends JFrame {
     private static final int TILE_SIZE = 80;
 
+    private static final Color TILE_COLOR_EVEN = Color.LIGHT_GRAY;
+    private static final Color TILE_COLOR_ODD = Color.DARK_GRAY;
+
     private Board board;
 
     public ChessWindow(Board board) {
@@ -24,31 +27,14 @@ public class ChessWindow extends JFrame {
     }
 
     public void populate() {
-        Color posOneTileColor;
-        Color posTwoTileColor;
-
-        boolean colorTurn = true;
-
         for (int row = 0; row < Board.SIZE; row++) {
             for (int col = 0; col < Board.SIZE; col++) {
                 JButton btn = new JButton();
 
-                btn.setForeground(Color.BLACK);
-
-                if (row % 2 == 0) {
-                    posOneTileColor = Color.LIGHT_GRAY;
-                    posTwoTileColor = Color.DARK_GRAY;
+                if (col % 2 == row % 2) {
+                    btn.setBackground(TILE_COLOR_EVEN);
                 } else {
-                    posOneTileColor = Color.DARK_GRAY;
-                    posTwoTileColor = Color.LIGHT_GRAY;
-                }
-
-                if (colorTurn) {
-                    btn.setBackground(posOneTileColor);
-                    colorTurn = false;
-                } else {
-                    btn.setBackground(posTwoTileColor);
-                    colorTurn = true;
+                    btn.setBackground(TILE_COLOR_ODD);
                 }
 
                 this.add(btn);
