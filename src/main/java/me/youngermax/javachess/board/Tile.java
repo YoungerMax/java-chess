@@ -14,6 +14,10 @@ public class Tile {
         this.y = y;
     }
 
+    public Piece getOccupyingPiece() {
+        return occupyingPiece;
+    }
+
     public void setOccupyingPiece(Piece piece) throws AlreadyOccupiedException {
         if (isOccupied()) {
             throw new AlreadyOccupiedException();

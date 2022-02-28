@@ -9,10 +9,8 @@ import java.awt.*;
 public class ChessWindow extends JFrame {
     private static final int TILE_SIZE = 80;
 
-    private static final Color TILE_COLOR_EVEN = Color.LIGHT_GRAY;
-    private static final Color TILE_COLOR_ODD = Color.DARK_GRAY;
-
     private Board board;
+    private ChessWindowTile[][] tiles = new ChessWindowTile[Board.SIZE][Board.SIZE];
 
     public ChessWindow(Board board) {
         this.board = board;
@@ -23,27 +21,29 @@ public class ChessWindow extends JFrame {
 
         this.setSize(Board.SIZE * TILE_SIZE, Board.SIZE * TILE_SIZE);
 
-        this.populate();
+        this.populate(board);
+        this.update(board);
     }
 
-    public void populate() {
-        for (int row = 0; row < Board.SIZE; row++) {
-            for (int col = 0; col < Board.SIZE; col++) {
-                JButton btn = new JButton();
-
-                if (col % 2 == row % 2) {
-                    btn.setBackground(TILE_COLOR_EVEN);
-                } else {
-                    btn.setBackground(TILE_COLOR_ODD);
-                }
-
+    public void populate(Board board) {
+        for (Tile[] tiles : board.tiles) {
+            for (Tile tile : tiles) {
+                ChessWindowTile btn = new ChessWindowTile(tile);
+                this.tiles[tile.x][tile.y] = btn;
                 this.add(btn);
             }
-
         }
     }
 
+    private boolean isEvenPiece(int x, int y) {
+        return x % 2 == y % 2;
+    }
+
     public void update(Board board) {
-        // todo update method
+        for (Tile[] tiles : board.tiles) {
+            for (Tile tile : tiles) {
+                this.tiles[tile.x][tile.y].setText(tile.getOccupyingPiece() == null ? "" : tile.getOccupyingPiece().getName());
+            }
+        }
     }
 }
