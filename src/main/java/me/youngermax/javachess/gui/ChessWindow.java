@@ -24,9 +24,6 @@ public class ChessWindow extends JFrame {
     }
 
     public void populate() {
-
-        boolean offsetSecondRow = false;
-
         Color posOneTileColor;
         Color posTwoTileColor;
 
