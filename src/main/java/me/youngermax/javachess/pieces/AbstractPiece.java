@@ -22,14 +22,14 @@ public abstract class AbstractPiece implements Piece {
     }
 
     @Override
-    public void moveToTile(Board board, Tile tile) throws CannotMoveException, AlreadyOccupiedException {
+    public void moveToTile(Board board, Tile tile) throws CannotMoveException {
         // check if the piece can move to the new tile
-        if (!Arrays.asList(this.getAvailableMoves(board)).contains(tile)) {
+        if (currentTile != null && !Arrays.asList(this.getAvailableMoves(board)).contains(tile)) {
             throw new CannotMoveException("cannot move to tile, it's already occupied");
         }
 
         // this is the old tile now
-        currentTile.leave();
+        if (currentTile != null) currentTile.leave();
 
         // move
         tile.setOccupyingPiece(this);

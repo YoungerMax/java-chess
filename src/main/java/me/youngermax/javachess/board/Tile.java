@@ -20,7 +20,7 @@ public class Tile {
 
     public void setOccupyingPiece(Piece piece) throws AlreadyOccupiedException {
         if (isOccupied()) {
-            throw new AlreadyOccupiedException();
+            throw new AlreadyOccupiedException(this);
         }
 
         occupyingPiece = piece;

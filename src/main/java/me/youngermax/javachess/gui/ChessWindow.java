@@ -5,11 +5,12 @@ import me.youngermax.javachess.board.Tile;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 public class ChessWindow extends JFrame {
     private static final int TILE_SIZE = 100;
 
-    private Board board;
+    protected final Board board;
     private ChessWindowTile[][] tiles = new ChessWindowTile[Board.SIZE][Board.SIZE];
 
     public ChessWindow(Board board) {
@@ -26,10 +27,13 @@ public class ChessWindow extends JFrame {
     }
 
     public void populate(Board board) {
-        for (Tile[] tiles : board.tiles) {
-            for (Tile tile : tiles) {
-                ChessWindowTile btn = new ChessWindowTile(tile);
-                this.tiles[tile.x][tile.y] = btn;
+        for (int x = 0; Board.SIZE > x; x++) {
+            for (int y = 0; Board.SIZE > y; y++) {
+                // yes, this is goofy, but gridlayout adds components the other way
+                Tile tile = board.tiles[y][x];
+                ChessWindowTile btn = new ChessWindowTile(tile, this);
+
+                this.tiles[y][x] = btn;
                 this.add(btn);
             }
         }
@@ -42,8 +46,32 @@ public class ChessWindow extends JFrame {
     public void update(Board board) {
         for (Tile[] tiles : board.tiles) {
             for (Tile tile : tiles) {
-                this.tiles[tile.x][tile.y].setText(tile.getOccupyingPiece() == null ? "" : tile.getOccupyingPiece().getName() + " (" + tile.getOccupyingPiece().getTeam().id + ")");
+                StringBuilder builder = new StringBuilder();
+
+                if (tile.isOccupied()) {
+                    builder.append(tile.getOccupyingPiece().getName());
+                    builder.append(" (").append(tile.getOccupyingPiece().getTeam().id).append(")");
+                } else {
+                    builder.append("(").append(tile.x).append(", ").append(tile.y).append(")");
+                }
+
+                if (this.tiles[tile.x][tile.y] == null) continue;
+
+                this.tiles[tile.x][tile.y].setText(builder.toString());
             }
+        }
+    }
+
+    public void highlightTiles(Tile[] tiles) {
+        for (Tile tile : tiles) {
+            System.out.println("Available: (" + tile.x + ", " + tile.y + ")");
+            this.tiles[tile.x][tile.y].highlight();
+        }
+    }
+
+    public void unhighlightTiles(Tile[] tiles) {
+        for (Tile tile : tiles) {
+            this.tiles[tile.x][tile.y].unhighlight();
         }
     }
 }

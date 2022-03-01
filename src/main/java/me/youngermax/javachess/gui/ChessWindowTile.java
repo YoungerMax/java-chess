@@ -10,11 +10,14 @@ import java.awt.event.ActionListener;
 public class ChessWindowTile extends JButton {
     private static final Color TILE_COLOR_EVEN = Color.LIGHT_GRAY;
     private static final Color TILE_COLOR_ODD = Color.DARK_GRAY;
+    private static final Color TILE_COLOR_HIGHLIGHT = Color.BLUE;
 
     private final Tile tile;
+    private final ChessWindow window;
 
-    public ChessWindowTile(Tile tile) {
+    public ChessWindowTile(Tile tile, ChessWindow window) {
         this.tile = tile;
+        this.window = window;
 
         this.setBackground(isEvenPiece(tile.x, tile.y) ? TILE_COLOR_EVEN : TILE_COLOR_ODD); // background color
         this.setForeground(isEvenPiece(tile.x, tile.y) ? TILE_COLOR_ODD : TILE_COLOR_EVEN); // text color
@@ -35,14 +38,29 @@ public class ChessWindowTile extends JButton {
         super.paintComponent(graphics);
     }
 
+    public void highlight() {
+        this.setBackground(TILE_COLOR_HIGHLIGHT);
+    }
+
+    public void unhighlight() {
+        this.setBackground(isEvenPiece(tile.x, tile.y) ? TILE_COLOR_EVEN : TILE_COLOR_ODD);
+    }
+
     private class TileActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             ChessWindowTile guiTile = ChessWindowTile.this;
 
-            // todo do something here
             // TODO: proper logging
             System.out.printf("DEBUG: (%d, %d) clicked%n", guiTile.tile.x, guiTile.tile.y);
+
+            if (guiTile.tile.isOccupied()) {
+                System.out.println("Tile is occupied");
+
+                guiTile.window.highlightTiles(
+                        guiTile.tile.getOccupyingPiece().getAvailableMoves(guiTile.window.board)
+                );
+            }
         }
     }
 }
