@@ -9,8 +9,8 @@ import java.awt.event.ActionListener;
 
 public class ChessWindowTile extends JButton {
     private static final Color TILE_COLOR_EVEN = Color.LIGHT_GRAY;
-    private static final Color TILE_COLOR_ODD = Color.DARK_GRAY;
-    private static final Color TILE_COLOR_HIGHLIGHT = Color.BLUE;
+    private static final Color TILE_COLOR_EVEN = new Color(210, 180, 140);
+    private static final Color TILE_COLOR_ODD = new Color(189,154,122);
 
     private final Tile tile;
     private final ChessWindow window;
