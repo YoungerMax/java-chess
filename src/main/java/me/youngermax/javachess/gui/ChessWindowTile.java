@@ -8,9 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ChessWindowTile extends JButton {
-    private static final Color TILE_COLOR_EVEN = Color.LIGHT_GRAY;
     private static final Color TILE_COLOR_EVEN = new Color(210, 180, 140);
     private static final Color TILE_COLOR_ODD = new Color(189,154,122);
+    private static final Color TILE_COLOR_HIGHLIGHT = Color.BLUE;
 
     private final Tile tile;
     private final ChessWindow window;
@@ -20,7 +20,7 @@ public class ChessWindowTile extends JButton {
         this.window = window;
 
         this.setBackground(isEvenPiece(tile.x, tile.y) ? TILE_COLOR_EVEN : TILE_COLOR_ODD); // background color
-        this.setForeground(isEvenPiece(tile.x, tile.y) ? TILE_COLOR_ODD : TILE_COLOR_EVEN); // text color
+        this.setForeground(Color.BLACK); // text color
         this.addActionListener(new TileActionListener());
     }
 
