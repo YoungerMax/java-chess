@@ -25,11 +25,11 @@ public class BishopPiece extends AbstractPiece {
         for (int diagonal = 1; diagonal < Board.SIZE; diagonal++) {
             if (!board.tiles[currentTile.x + diagonal][currentTile.y + diagonal].isOccupied() && board.tiles[currentTile.x + diagonal][currentTile.y + diagonal] != null) { //up right
                 possibleMoves.add(board.tiles[currentTile.x + diagonal][currentTile.y + diagonal]);
-            } else if (board.tiles[currentTile.x - diagonal][currentTile.y + diagonal] != null && !board.tiles[currentTile.x - diagonal][currentTile.y + diagonal].isOccupied()) { //up left
+            } if (board.tiles[currentTile.x - diagonal][currentTile.y + diagonal] != null && !board.tiles[currentTile.x - diagonal][currentTile.y + diagonal].isOccupied()) { //up left
                 possibleMoves.add(board.tiles[currentTile.x - diagonal][currentTile.y + diagonal]);
-            } else if (board.tiles[currentTile.x - diagonal][currentTile.y - diagonal] != null && !board.tiles[currentTile.x - diagonal][currentTile.y - diagonal].isOccupied()) { //down left
+            } if (board.tiles[currentTile.x - diagonal][currentTile.y - diagonal] != null && !board.tiles[currentTile.x - diagonal][currentTile.y - diagonal].isOccupied()) { //down left
                 possibleMoves.add(board.tiles[currentTile.x - diagonal][currentTile.y - diagonal]);
-            } else if (board.tiles[currentTile.x + diagonal][currentTile.y - diagonal] != null && !board.tiles[currentTile.x + diagonal][currentTile.y - diagonal].isOccupied()) { //down right
+            } if (board.tiles[currentTile.x + diagonal][currentTile.y - diagonal] != null && !board.tiles[currentTile.x + diagonal][currentTile.y - diagonal].isOccupied()) { //down right
                 possibleMoves.add(board.tiles[currentTile.x + diagonal][currentTile.y - diagonal]);
             }
         }

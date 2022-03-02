@@ -26,11 +26,11 @@ public class RookPiece extends AbstractPiece {
         for (int i = 0; i < Board.SIZE; i++) {
             if (board.tiles[currentTile.x][currentTile.y + i] != null && !board.tiles[currentTile.x][currentTile.y + i].isOccupied()) { //up
                 possibleMoves.add(board.tiles[currentTile.x][currentTile.y + i]);
-            } else if (board.tiles[currentTile.x][currentTile.y - i] != null && !board.tiles[currentTile.x][currentTile.y - i].isOccupied()) { //down
+            } if (board.tiles[currentTile.x][currentTile.y - i] != null && !board.tiles[currentTile.x][currentTile.y - i].isOccupied()) { //down
                 possibleMoves.add(board.tiles[currentTile.x][currentTile.y - i]);
-            } else if (board.tiles[currentTile.x + i][currentTile.y] != null && !board.tiles[currentTile.x + i][currentTile.y].isOccupied()) { //right
+            } if (board.tiles[currentTile.x + i][currentTile.y] != null && !board.tiles[currentTile.x + i][currentTile.y].isOccupied()) { //right
                 possibleMoves.add(board.tiles[currentTile.x + i][currentTile.y]);
-            } else if (board.tiles[currentTile.x - i][currentTile.y] != null && !board.tiles[currentTile.x - i][currentTile.y].isOccupied()) { //left
+            } if (board.tiles[currentTile.x - i][currentTile.y] != null && !board.tiles[currentTile.x - i][currentTile.y].isOccupied()) { //left
                 possibleMoves.add(board.tiles[currentTile.x - i][currentTile.y]);
             }
         }
