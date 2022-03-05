@@ -34,7 +34,7 @@ public class Board {
             new RookPiece(this.team1).moveToTile(this, this.tiles[7][0]);
 
             for (int i = 0; SIZE > i; i++) {
-                new PawnPiece(this.team1).moveToTile(this, this.tiles[i][1]);
+                //new PawnPiece(this.team1).moveToTile(this, this.tiles[i][1]);
             }
 
             // team 2
@@ -54,5 +54,20 @@ public class Board {
             // this should not be thrown
             throw new RuntimeException("tile was occupied before board was populated, something went wrong");
         }
+    }
+
+    // safely (no java.lang.ArrayIndexOutOfBoundsException) get a tile at (x, y)
+    public Tile getTileAt(int x, int y) {
+        if (x > -1 && y > -1 && this.tiles.length > x && this.tiles[x].length > y) {
+            return this.tiles[x][y];
+        }
+
+        return null;
+    }
+
+    public Tile getVacantTileAt(int x, int y) {
+        Tile t = getTileAt(x, y);
+
+        return t == null || t.isOccupied() ? null : t;
     }
 }

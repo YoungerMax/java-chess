@@ -22,17 +22,50 @@ public class BishopPiece extends AbstractPiece {
     public Tile[] getAvailableMoves(Board board) {
         List<Tile> possibleMoves = new ArrayList<>();
 
-        for (int diagonal = 1; diagonal < Board.SIZE; diagonal++) {
-            if (!board.tiles[currentTile.x + diagonal][currentTile.y + diagonal].isOccupied() && board.tiles[currentTile.x + diagonal][currentTile.y + diagonal] != null) { //up right
-                possibleMoves.add(board.tiles[currentTile.x + diagonal][currentTile.y + diagonal]);
-            } if (board.tiles[currentTile.x - diagonal][currentTile.y + diagonal] != null && !board.tiles[currentTile.x - diagonal][currentTile.y + diagonal].isOccupied()) { //up left
-                possibleMoves.add(board.tiles[currentTile.x - diagonal][currentTile.y + diagonal]);
-            } if (board.tiles[currentTile.x - diagonal][currentTile.y - diagonal] != null && !board.tiles[currentTile.x - diagonal][currentTile.y - diagonal].isOccupied()) { //down left
-                possibleMoves.add(board.tiles[currentTile.x - diagonal][currentTile.y - diagonal]);
-            } if (board.tiles[currentTile.x + diagonal][currentTile.y - diagonal] != null && !board.tiles[currentTile.x + diagonal][currentTile.y - diagonal].isOccupied()) { //down right
-                possibleMoves.add(board.tiles[currentTile.x + diagonal][currentTile.y - diagonal]);
+        // check diagonal up + right
+        for (int upRight = 1; upRight < Board.SIZE; upRight++) {
+            Tile tile = board.getVacantTileAt(currentTile.x + upRight, currentTile.y + upRight);
+
+            if (tile != null) {
+                possibleMoves.add(tile);
+            } else {
+                break;
             }
         }
+
+        // check diagonal up + left
+        for (int upLeft = 1; upLeft < Board.SIZE; upLeft++) {
+            Tile tile = board.getVacantTileAt(currentTile.x - upLeft, currentTile.y + upLeft);
+
+            if (tile != null) {
+                possibleMoves.add(tile);
+            } else {
+                break;
+            }
+        }
+
+        // check diagonal down + right
+        for (int downRight = 1; downRight < Board.SIZE; downRight++) {
+            Tile tile = board.getVacantTileAt(currentTile.x + downRight, currentTile.y - downRight);
+
+            if (tile != null) {
+                possibleMoves.add(tile);
+            } else {
+                break;
+            }
+        }
+
+        // check diagonal down + left
+        for (int downLeft = 1; downLeft < Board.SIZE; downLeft++) {
+            Tile tile = board.getVacantTileAt(currentTile.x - downLeft, currentTile.y - downLeft);
+
+            if (tile != null) {
+                possibleMoves.add(tile);
+            } else {
+                break;
+            }
+        }
+
         return possibleMoves.toArray(new Tile[0]);
     }
 }

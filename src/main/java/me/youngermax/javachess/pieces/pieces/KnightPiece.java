@@ -7,6 +7,7 @@ import me.youngermax.javachess.pieces.AbstractPiece;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class KnightPiece extends AbstractPiece {
     public KnightPiece(Team team) {
@@ -22,21 +23,20 @@ public class KnightPiece extends AbstractPiece {
     public Tile[] getAvailableMoves(Board board) {
         List<Tile> possibleMoves = new ArrayList<>();
 
-        if (board.tiles[currentTile.x + 1][currentTile.y + 2] != null && !board.tiles[currentTile.x + 1][currentTile.y + 2].isOccupied()) { //right 1 up 2
-            possibleMoves.add(board.tiles[currentTile.x + 1][currentTile.y + 2]);
-        } if (board.tiles[currentTile.x + 2][currentTile.y + 1] != null && !board.tiles[currentTile.x + 2][currentTile.y + 1].isOccupied()) { //right 2 up 1
-            possibleMoves.add(board.tiles[currentTile.x + 2][currentTile.y + 1]);
-        } if (board.tiles[currentTile.x + 1][currentTile.y - 2] != null && !board.tiles[currentTile.x + 2][currentTile.y - 1].isOccupied()) { //right 2 down 1
-            possibleMoves.add(board.tiles[currentTile.x + 2][currentTile.y - 1]);
-        } if (board.tiles[currentTile.x + 1][currentTile.y - 2] != null && !board.tiles[currentTile.x + 1][currentTile.y - 2].isOccupied()) { //right 1 down 2
-            possibleMoves.add(board.tiles[currentTile.x + 1][currentTile.y - 2]);
-        } if (board.tiles[currentTile.x - 1][currentTile.y - 2] != null && !board.tiles[currentTile.x - 1][currentTile.y - 2].isOccupied()) { //left 1 down 2
-            possibleMoves.add(board.tiles[currentTile.x - 1][currentTile.y - 2]);
-        } if (board.tiles[currentTile.x - 2][currentTile.y + 1] != null && !board.tiles[currentTile.x - 2][currentTile.y + 1].isOccupied()) { //left 2 up 1
-            possibleMoves.add(board.tiles[currentTile.x - 2][currentTile.y + 1]);
-        } if (board.tiles[currentTile.x - 2][currentTile.y - 1] != null && !board.tiles[currentTile.x - 2][currentTile.y - 1].isOccupied()) { //right 2 up 1
-            possibleMoves.add(board.tiles[currentTile.x - 2][currentTile.y - 1]);
-        }
+        possibleMoves.add(board.getVacantTileAt(currentTile.x + 1, currentTile.y + 2));
+        possibleMoves.add(board.getVacantTileAt(currentTile.x + 2, currentTile.y + 1));
+
+        possibleMoves.add(board.getVacantTileAt(currentTile.x + 1, currentTile.y - 2));
+        possibleMoves.add(board.getVacantTileAt(currentTile.x + 2, currentTile.y - 1));
+
+        possibleMoves.add(board.getVacantTileAt(currentTile.x - 1, currentTile.y - 2));
+        possibleMoves.add(board.getVacantTileAt(currentTile.x - 2, currentTile.y - 1));
+
+        possibleMoves.add(board.getVacantTileAt(currentTile.x - 1, currentTile.y + 2));
+        possibleMoves.add(board.getVacantTileAt(currentTile.x - 2, currentTile.y + 1));
+
+        // remove all null moves
+        possibleMoves.removeIf(Objects::isNull);
 
         return possibleMoves.toArray(new Tile[0]);
     }

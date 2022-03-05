@@ -19,12 +19,8 @@ public class PawnPiece extends AbstractPiece {
     public Tile[] getAvailableMoves(Board board) {
         // todo implement an extra move on first turn
 
-        if (!board.tiles[currentTile.x][this.currentTile.y + 1].isOccupied()) {
-            return new Tile[] {
-                    board.tiles[currentTile.x][this.currentTile.y + 1]
-            };
-        } else {
-            return new Tile[] {};
-        }
+        return new Tile[] {
+                board.getVacantTileAt(currentTile.x, currentTile.y + 1)
+        };
     }
 }
