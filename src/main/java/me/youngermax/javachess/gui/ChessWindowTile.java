@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// a JButton, but with extra logic for chess
 public class ChessWindowTile extends JButton {
     private static final Color TILE_COLOR_EVEN = new Color(210, 180, 140);
     private static final Color TILE_COLOR_ODD = new Color(189,154,122);
@@ -19,8 +20,13 @@ public class ChessWindowTile extends JButton {
         this.tile = tile;
         this.window = window;
 
-        this.setBackground(isEvenPiece(tile.x, tile.y) ? TILE_COLOR_EVEN : TILE_COLOR_ODD); // background color
-        this.setForeground(Color.BLACK); // text color
+        // set the background color
+        this.setBackground(isEvenPiece(tile.x, tile.y) ? TILE_COLOR_EVEN : TILE_COLOR_ODD);
+
+        // set the text color
+        this.setForeground(Color.BLACK);
+
+        // add a click listener
         this.addActionListener(new TileActionListener());
     }
 
@@ -54,9 +60,11 @@ public class ChessWindowTile extends JButton {
             // TODO: proper logging
             System.out.printf("DEBUG: (%d, %d) clicked%n", guiTile.tile.x, guiTile.tile.y);
 
+            // make sure there is a piece on the clicked tile
             if (guiTile.tile.isOccupied()) {
                 System.out.println("Tile is occupied");
 
+                // show the available tiles that the piece can move to
                 guiTile.window.highlightTiles(
                         guiTile.tile.getOccupyingPiece().getAvailableMoves(guiTile.window.board)
                 );

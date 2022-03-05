@@ -29,7 +29,8 @@ public class ChessWindow extends JFrame {
     public void populate(Board board) {
         for (int x = 0; Board.SIZE > x; x++) {
             for (int y = 0; Board.SIZE > y; y++) {
-                // yes, this is goofy, but gridlayout adds components the other way
+                // yes, this is goofy, but gridlayout adds components counter-intuitively
+                // this adds the clickable buttons to the screen
                 Tile tile = board.tiles[y][x];
                 ChessWindowTile btn = new ChessWindowTile(tile, this);
 
@@ -46,22 +47,29 @@ public class ChessWindow extends JFrame {
     public void update(Board board) {
         for (Tile[] tiles : board.tiles) {
             for (Tile tile : tiles) {
+                // add some debug text
                 StringBuilder builder = new StringBuilder();
 
                 if (tile.isOccupied()) {
+                    // add the name of the occupying piece
                     builder.append(tile.getOccupyingPiece().getName());
+                    // add the team ID
                     builder.append(" (").append(tile.getOccupyingPiece().getTeam().id).append(")");
                 } else {
+                    // add (x, y) positions
                     builder.append("(").append(tile.x).append(", ").append(tile.y).append(")");
                 }
 
+                // null check to make sure that the tile exists
                 if (this.tiles[tile.x][tile.y] == null) continue;
 
+                // set the text of the button
                 this.tiles[tile.x][tile.y].setText(builder.toString());
             }
         }
     }
 
+    // change background color of multiple ChessWindowTiles
     public void highlightTiles(Tile[] tiles) {
         for (Tile tile : tiles) {
             System.out.println("Available: (" + tile.x + ", " + tile.y + ")");
@@ -69,6 +77,7 @@ public class ChessWindow extends JFrame {
         }
     }
 
+    // change background color of multiple ChessWindowTiles to original color
     public void unhighlightTiles(Tile[] tiles) {
         for (Tile tile : tiles) {
             this.tiles[tile.x][tile.y].unhighlight();
